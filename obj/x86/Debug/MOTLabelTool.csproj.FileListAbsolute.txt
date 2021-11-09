@@ -1,0 +1,15 @@
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.csprojAssemblyReference.cache
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.Properties.Resources.resources
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.csproj.GenerateResource.cache
+D:\project\MOTLabelTool\bin\Debug\MOTLabelTool.exe.config
+D:\project\MOTLabelTool\bin\Debug\MOTLabelTool.exe.manifest
+D:\project\MOTLabelTool\bin\Debug\MOTLabelTool.application
+D:\project\MOTLabelTool\bin\Debug\MOTLabelTool.exe
+D:\project\MOTLabelTool\bin\Debug\MOTLabelTool.pdb
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.csproj.CoreCompileInputs.cache
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.exe.manifest
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.application
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.csproj.CopyComplete
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.exe
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.pdb
+D:\project\MOTLabelTool\obj\x86\Debug\MOTLabelTool.FormMain.resources
