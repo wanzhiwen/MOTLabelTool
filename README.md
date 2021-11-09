@@ -22,12 +22,21 @@
     - clear:清除当前帧当前目标的标框，x,y,w,h全置0
     - clearAll:清除当前帧的所有标注过的目标。
 3. 标注信息区：右边展示标注目标的信息，信息包括：
-    - x,y,w,h：表示标注图片的位置以及大小。
-    - frameId: 当前图片的id，表示当前处理的是整个序列的第几帧。
-    - objId: 当前操作目标的id，表示当前帧的第几个标注目标。
-    - objType: 标注目标类型：**0-球员 1-球**
-    - clothNum: 如果标注的目标是球员的话表示该球员的球衣号码。
-    - shotType: 镜头类型：**0-远镜头 1-中镜头 2-远镜头**
+    - Groundtruth 4
+        - x,y,w,h：表示标注图片的位置以及大小。
+    - target Information
+        - frameId: 当前图片的id，表示当前处理的是整个序列的第几帧。
+        - objId: 当前操作目标的id，表示当前帧的第几个标注目标。
+        - objType: 标注目标类型：**0-球员 1-球**
+        - clothNum: 如果标注的目标是球员的话表示该球员的球衣号码。
+        - shotType: 镜头类型：**0-远镜头 1-中镜头 2-远镜头**
+    - Attribute
+        - SOC(Same Team Occlusion):目标是否发生同队遮挡
+        - DOC(Different Team Occlusion):目标是否发生异队遮挡
+        - MOC(Multi team Occlusion):目标是否发生多人遮挡
+        - FOC(Full Occlusion):目标是否发生完全遮挡
+        - MB(Motion Blur):目标是否发生运动模糊
+        - OV(Out of View):目标是否不在画面上
 4. 快捷键提示区：下面这部分表示一些可用的快捷键：
     - BoxPosition:标框位置微调
         - I/小键盘↑键：减小y
