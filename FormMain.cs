@@ -22,6 +22,8 @@ namespace MOTLabelTool
     {             
         string imagePath_ = "";
         string annoPath_ = "";
+        string infoPath_ = "";
+        bool info_exist = false;
         List<string> imageNames = new List<string>();
         Dictionary<int, Dictionary<int, TrackObject>> anno = new Dictionary<int, Dictionary<int, TrackObject>>();
         int selectedObjectIndex = -1;
@@ -30,6 +32,45 @@ namespace MOTLabelTool
         int zoom_ = 1;// scale
         bool isreset_ = false;
         int prelistBoxFileIndex_ = -1;
+        bool drawAll = false;
+        private float X;
+        private float Y;
+
+        private void setTag(Control cons)
+        {
+            foreach (Control con in cons.Controls)
+            {
+                con.Tag = con.Width + ":" + con.Height + ":" + con.Left + ":" + con.Top + ":" + con.Font.Size;
+                if (con.Controls.Count > 0)
+                    setTag(con);
+            }
+        }
+
+
+        // 根据窗体大小调整控件大小
+        private void setControls(float newx, float newy, Control cons)
+        {
+            //遍历窗体中的控件，重新设置控件的值
+            foreach (Control con in cons.Controls)
+            {
+                
+                string[] mytag = con.Tag.ToString().Split(new char[] { ':' });//获取控件的Tag属性值，并分割后存储字符串数组
+                float a = System.Convert.ToSingle(mytag[0]) * newx;//根据窗体缩放比例确定控件的值，宽度
+                con.Width = (int)a;//宽度
+                a = System.Convert.ToSingle(mytag[1]) * newy;//高度
+                con.Height = (int)(a);
+                a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
+                con.Left = (int)(a);
+                a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
+                con.Top = (int)(a);
+                Single currentSize = System.Convert.ToSingle(mytag[4]) * newy;//字体大小
+                con.Font = new Font(con.Font.Name, currentSize, con.Font.Style, con.Font.Unit);
+                if (con.Controls.Count > 0)
+                {
+                    setControls(newx, newy, con);
+                }
+            }
+        }
 
         // Constructor
         public FormMain()
@@ -40,8 +81,20 @@ namespace MOTLabelTool
         // Main window loading
         private void FormMain_Load(object sender, EventArgs e)
         {
+
+            X = this.Width;
+            Y = this.Height;
+            setTag(this);
             LoadPics();// Load picture
             LoadAnno();// Load annotation
+        }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+
+            float newx = (this.Width) / X;  //窗体宽度缩放比例
+            float newy = (this.Height) / Y; //窗体高度缩放比例
+            setControls(newx, newy, this);  //随窗体改变控件大小
         }
 
         // Load all images in the image path
@@ -76,6 +129,34 @@ namespace MOTLabelTool
                 File.Create(annoPath_);
                 return;
             }
+
+            if(infoPath_ != "" && File.Exists(infoPath_))
+            {
+                info_exist = true;
+                this.clothNumComboBox.Visible = true;
+                this.clothNumTextBox.Visible = false;
+                this.clothNumComboBox.Items.Clear();
+                this.clothNumComboBox.Items.Add("");
+                System.IO.StreamReader info_file = new System.IO.StreamReader(infoPath_);
+                string line1;
+                while(true)
+                {
+                    line1 = info_file.ReadLine();
+                    if(line1 == null) break;
+                    var items = line1.Split(',');
+                    var name = items[0];
+                    var num = items[1];
+                    this.clothNumComboBox.Items.Add(num + '-' + name);
+                }
+                info_file.Close();
+            }
+            else
+            {
+                info_exist = false;
+                this.clothNumComboBox.Visible = false;
+                this.clothNumTextBox.Visible = true;
+            }
+
             System.IO.StreamReader file = new System.IO.StreamReader(annoPath_);
             string aLine;
             while(true)
@@ -99,6 +180,7 @@ namespace MOTLabelTool
                 var is_mb = Convert.ToInt32(items[13]);
                 var is_ov = Convert.ToInt32(items[14]);
                 TrackObject track_object = new TrackObject(frame_id, object_id, x, y, w, h, object_type, cloth_num, shot_type, is_soc, is_doc, is_moc, is_foc, is_mb, is_ov);
+                if(items.Length == 16) track_object.name = items[15];
                 if(!anno.ContainsKey(frame_id))
                 {
                     Dictionary<int, TrackObject> d = new Dictionary<int, TrackObject>();
@@ -196,9 +278,13 @@ namespace MOTLabelTool
                 this.heightTextBox.Text = Convert.ToString(trackObject.bbox_h);
                 this.frameIdTextBox.Text = Convert.ToString(trackObject.frame_id);
                 this.ObjectIdTextBox.Text = Convert.ToString(trackObject.object_id);
-                this.objectTypeTextBox.Text = Convert.ToString(trackObject.object_type);
-                this.clothNumTextBox.Text = Convert.ToString(trackObject.cloth_num);
-                this.shotTypeTextBox.Text = Convert.ToString(trackObject.shot_type);
+                this.objectTypeComboBox.SelectedIndex = trackObject.object_type;
+                if(info_exist){
+                    if(trackObject.cloth_num == 0) this.clothNumComboBox.SelectedIndex = 0;
+                    else this.clothNumComboBox.Text = Convert.ToString(trackObject.cloth_num) + "-" + trackObject.name;
+                }
+                else this.clothNumTextBox.Text = Convert.ToString(trackObject.cloth_num);
+                this.shotTypeComboBox.SelectedIndex = trackObject.shot_type;
                 if(trackObject.is_soc > 0) this.checkBox1.CheckState = CheckState.Checked;
                 else this.checkBox1.CheckState = CheckState.Unchecked;
                 if(trackObject.is_doc > 0) this.checkBox2.CheckState = CheckState.Checked;
@@ -244,8 +330,19 @@ namespace MOTLabelTool
         {
             if (pictureBox1.Image != null)
             {
-                
-                if (Rect != null && Rect.Width > 0 && Rect.Height > 0)
+                if(drawAll){
+                    if(selectedFrameIndex != -1){
+                        Rectangle rect1 = new Rectangle();
+                        foreach(int k in anno[selectedFrameIndex].Keys){
+                            rect1.Location = new Point(anno[selectedFrameIndex][k].bbox_x * zoom_, anno[selectedFrameIndex][k].bbox_y * zoom_);
+                            rect1.Size = new Size(anno[selectedFrameIndex][k].bbox_w * zoom_, anno[selectedFrameIndex][k].bbox_h * zoom_);
+                            e.Graphics.DrawRectangle(new Pen(Color.Red, 3), rect1);
+                            e.Graphics.DrawString(Convert.ToString(k), new Font("Futura Bk BT", 15 * zoom_, FontStyle.Regular), Brushes.Red, anno[selectedFrameIndex][k].bbox_x * zoom_, anno[selectedFrameIndex][k].bbox_y * zoom_);
+                        }
+                    }
+                    drawAll = false;
+                }
+                else if (Rect != null && Rect.Width > 0 && Rect.Height > 0)
                 {
                     e.Graphics.DrawRectangle(new Pen(Color.Red, 3), Rect);//Repaint the color to red  
                 }              
@@ -294,6 +391,7 @@ namespace MOTLabelTool
             {
                 imagePath_ = dilog.SelectedPath + "\\";
                 annoPath_ = dilog.SelectedPath + "\\anno.txt";
+                infoPath_ = dilog.SelectedPath + "\\info.txt";
                 FormMain_Load(null, null);
             }
             this.tFrameLabel.Text = "Total Frame: " + Convert.ToString(frameNum);
@@ -515,23 +613,43 @@ namespace MOTLabelTool
             }
         }
 
-        private void objectTypeTextBox_KeyUp(object sender, EventArgs e)
+        private void  objectTypeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if(this.objectTypeTextBox.Text != "" && selectedFrameIndex != -1 && selectedObjectIndex != -1)
+            if(this.objectTypeComboBox.SelectedIndex >= 0 && selectedFrameIndex != -1 && selectedObjectIndex != -1)
             {
-                foreach(char c in this.objectTypeTextBox.Text){
+                anno[selectedFrameIndex][selectedObjectIndex].object_type = this.objectTypeComboBox.SelectedIndex;
+            }
+        }
+
+        private void  clothNumComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(this.clothNumComboBox.SelectedIndex >= 0 && selectedFrameIndex != -1 && selectedObjectIndex != -1)
+            {
+                if(this.clothNumComboBox.Text == ""){
+                    anno[selectedFrameIndex][selectedObjectIndex].name = null;
+                    anno[selectedFrameIndex][selectedObjectIndex].cloth_num = 0;
+                    return;
+                }
+                string num = this.clothNumComboBox.Text.Split('-')[0];
+                string name = this.clothNumComboBox.Text.Split('-')[1];
+                foreach(char c in num){
                     if(!char.IsNumber(c))
                     {
                         MessageBox.Show("only digits requires");
                         return;
                     }
                 }
-                anno[selectedFrameIndex][selectedObjectIndex].object_type = Convert.ToInt32(this.objectTypeTextBox.Text);
+                anno[selectedFrameIndex][selectedObjectIndex].name = name;
+                anno[selectedFrameIndex][selectedObjectIndex].cloth_num = Convert.ToInt32(num);
             }
         }
 
         private void clothNumTextBox_KeyUp(object sender, EventArgs e)
         {
+            if(this.clothNumTextBox.Text == ""){
+                 anno[selectedFrameIndex][selectedObjectIndex].cloth_num = 0;
+                anno[selectedFrameIndex][selectedObjectIndex].name = null;
+            }
             if(this.clothNumTextBox.Text != "" && selectedFrameIndex != -1 && selectedObjectIndex != -1)
             {
                 foreach(char c in this.clothNumTextBox.Text){
@@ -545,20 +663,15 @@ namespace MOTLabelTool
             }
         }
 
-        private void shotTypeTextBox_KeyUp(object sender, EventArgs e)
+        private void  shotTypeComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if(this.shotTypeTextBox.Text != "" && selectedFrameIndex != -1 && selectedObjectIndex != -1)
+            if(this.shotTypeComboBox.SelectedIndex >= 0 && selectedFrameIndex != -1 && selectedObjectIndex != -1)
             {
-                foreach(char c in this.shotTypeTextBox.Text){
-                    if(!char.IsNumber(c))
-                    {
-                        MessageBox.Show("only digits requires");
-                        return;
-                    }
-                }
-                anno[selectedFrameIndex][selectedObjectIndex].shot_type = Convert.ToInt32(this.shotTypeTextBox.Text);
+                anno[selectedFrameIndex][selectedObjectIndex].shot_type = this.shotTypeComboBox.SelectedIndex;
             }
         }
+
+        
 
         private void reset_Click(object sender, EventArgs e)
         {
@@ -590,12 +703,38 @@ namespace MOTLabelTool
             }
         }
 
+        private void show_Click(object sender, EventArgs e)
+        {
+            if(selectedFrameIndex != -1){
+                drawAll = true;
+                //SelectedIndexChanged(null, null);
+                pictureBox1.Invalidate();
+            }
+        }
+
         private void save_Click(object sender, EventArgs e)
         {
             if(annoPath_ == "") return;
-            File.Delete(annoPath_);
             var content = "";
             var frameKeyCol = anno.Keys;
+            
+            /*
+             * 球员球衣号码回溯标注
+            */
+            var obj_count = 0;
+            foreach(int k1 in frameKeyCol) obj_count = anno[k1].Keys.Count > obj_count ? anno[k1].Keys.Count : obj_count;
+            for(int i = 0; i < obj_count; i++){
+                for(int j = 0; j < frameNum && anno.ContainsKey(j); j++){
+                    if(anno[j].ContainsKey(i) && anno[j][i].cloth_num != 0){
+                        for(int k = 0; k < frameNum && anno.ContainsKey(k) && anno[k].ContainsKey(i); k++){
+                            anno[k][i].cloth_num = anno[j][i].cloth_num;//overwrite 
+                            if(anno[j][i].name != null) anno[k][i].name = anno[j][i].name;
+                        }
+                        break;
+                    }
+                }
+            }
+
             foreach(int k1 in frameKeyCol){
                 var objectKeyCol = anno[k1].Keys;
                 foreach(int k2 in objectKeyCol){
@@ -614,10 +753,17 @@ namespace MOTLabelTool
                     var is_foc = anno[k1][k2].is_foc;
                     var is_mb = anno[k1][k2].is_mb;
                     var is_ov = anno[k1][k2].is_ov;
-                    if((w == 0 || h == 0) && is_ov == 0) continue;
-                    else content += Convert.ToString(frame_id) + "," + Convert.ToString(object_id) + "," + Convert.ToString(x) + "," + Convert.ToString(y) + "," + Convert.ToString(w) + "," + Convert.ToString(h) + "," + Convert.ToString(object_type) + "," + Convert.ToString(cloth_num) + "," + Convert.ToString(shot_type) + "," + Convert.ToString(is_soc) +  "," + Convert.ToString(is_doc) + "," + Convert.ToString(is_moc) + "," + Convert.ToString(is_foc) + "," + Convert.ToString(is_mb) + "," + Convert.ToString(is_ov) + "\n";
+                    if((w == 0 || h == 0) && is_ov == 0 && is_foc == 0){
+                        if(cloth_num != 0) MessageBox.Show("frame:" + Convert.ToString(k1) + ",obj:" + Convert.ToString(k2) + "is ov or foc?");
+                        else continue;
+                    }
+                    if((is_ov != 0 || is_foc != 0) && w != 0) MessageBox.Show("frame:" + Convert.ToString(k1) + " obj:" + Convert.ToString(k2) + " haven't clear box");
+                    else content += Convert.ToString(frame_id) + "," + Convert.ToString(object_id) + "," + Convert.ToString(x) + "," + Convert.ToString(y) + "," + Convert.ToString(w) + "," + Convert.ToString(h) + "," + Convert.ToString(object_type) + "," + Convert.ToString(cloth_num) + "," + Convert.ToString(shot_type) + "," + Convert.ToString(is_soc) +  "," + Convert.ToString(is_doc) + "," + Convert.ToString(is_moc) + "," + Convert.ToString(is_foc) + "," + Convert.ToString(is_mb) + "," + Convert.ToString(is_ov);
+                    if(anno[k1][k2].name != null) content = content + "," + anno[k1][k2].name;
+                    content += "\n";
                 }
             }
+            File.Delete(annoPath_);
             File.AppendAllText(annoPath_, content.Trim());
         }
 
@@ -682,6 +828,7 @@ namespace MOTLabelTool
         public int is_foc;
         public int is_mb;
         public int is_ov;
+        public string name;
         public TrackObject(int f_id, int o_id, int x, int y, int w, int h, int o_type, int c_num, int s_type, int soc, int doc, int moc, int foc, int mb, int ov)
         {
             frame_id = f_id;

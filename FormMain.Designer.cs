@@ -35,12 +35,12 @@
             this.preObjectButton = new System.Windows.Forms.Button();
             this.nextObjectButton = new System.Windows.Forms.Button();
             this.save = new System.Windows.Forms.Button();
+            this.show = new System.Windows.Forms.Button();
             this.shrinkButton = new System.Windows.Forms.Button();
             this.reset = new System.Windows.Forms.Button();
             this.clearBox = new System.Windows.Forms.Button();
             this.clearAllBox = new System.Windows.Forms.Button();
             this.enlargeButton = new System.Windows.Forms.Button();
-            this.numericUpDownImportHeight = new System.Windows.Forms.NumericUpDown();
             this.topLabel = new System.Windows.Forms.Label();
             this.buttomLabel = new System.Windows.Forms.Label();
             this.rightLabel = new System.Windows.Forms.Label();
@@ -78,9 +78,10 @@
             this.heightTextBox = new System.Windows.Forms.TextBox();
             this.frameIdTextBox = new System.Windows.Forms.TextBox();
             this.ObjectIdTextBox = new System.Windows.Forms.TextBox();
-            this.objectTypeTextBox = new System.Windows.Forms.TextBox();
+            this.objectTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.clothNumComboBox = new System.Windows.Forms.ComboBox();
             this.clothNumTextBox = new System.Windows.Forms.TextBox();
-            this.shotTypeTextBox = new System.Windows.Forms.TextBox();
+            this.shotTypeComboBox = new System.Windows.Forms.ComboBox();
             this.buttonImport = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -93,7 +94,6 @@
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImportHeight)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -107,12 +107,12 @@
             this.tabPage1.Controls.Add(this.preObjectButton);
             this.tabPage1.Controls.Add(this.nextObjectButton);
             this.tabPage1.Controls.Add(this.save);
+            this.tabPage1.Controls.Add(this.show);
             this.tabPage1.Controls.Add(this.shrinkButton);
             this.tabPage1.Controls.Add(this.reset);
             this.tabPage1.Controls.Add(this.clearBox);
             this.tabPage1.Controls.Add(this.clearAllBox);
             this.tabPage1.Controls.Add(this.enlargeButton);
-            this.tabPage1.Controls.Add(this.numericUpDownImportHeight);
             this.tabPage1.Controls.Add(this.topLabel);
             this.tabPage1.Controls.Add(this.buttomLabel);
             this.tabPage1.Controls.Add(this.rightLabel);
@@ -150,9 +150,10 @@
             this.tabPage1.Controls.Add(this.heightTextBox);
             this.tabPage1.Controls.Add(this.frameIdTextBox);
             this.tabPage1.Controls.Add(this.ObjectIdTextBox);
-            this.tabPage1.Controls.Add(this.objectTypeTextBox);
+            this.tabPage1.Controls.Add(this.objectTypeComboBox);
+            this.tabPage1.Controls.Add(this.clothNumComboBox);
             this.tabPage1.Controls.Add(this.clothNumTextBox);
-            this.tabPage1.Controls.Add(this.shotTypeTextBox);
+            this.tabPage1.Controls.Add(this.shotTypeComboBox);
             this.tabPage1.Controls.Add(this.buttonImport);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.checkBox1);
@@ -172,23 +173,8 @@
             this.tabPage1.UseVisualStyleBackColor = true;
 
             // 
-            // save
-            // 
-            this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.save.Location = new System.Drawing.Point(632, 10);
-            this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(64, 23);
-            this.save.TabIndex = 52;
-            this.save.Text = "save";
-            this.save.Font = new System.Drawing.Font("Times New Roman", 10);
-            this.save.UseVisualStyleBackColor = true;
-            this.save.Visible = true;
-            this.save.Click += new System.EventHandler(this.save_Click);
-
-            // 
             // preframeButton
             // 
-            this.preFrameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.preFrameButton.Location = new System.Drawing.Point(10, 10);
             this.preFrameButton.Name = "preFrameListBoxFile";
             this.preFrameButton.Size = new System.Drawing.Size(64, 23);
@@ -202,7 +188,6 @@
             // 
             // nextFrameButton
             // 
-            this.nextFrameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.nextFrameButton.Location = new System.Drawing.Point(80, 10);
             this.nextFrameButton.Name = "nextFrameListBoxFile";
             this.nextFrameButton.Size = new System.Drawing.Size(64, 23);
@@ -216,7 +201,6 @@
             // 
             // preObjectButton
             // 
-            this.preObjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.preObjectButton.Location = new System.Drawing.Point(150, 10);
             this.preObjectButton.Name = "preObjectListBoxFile";
             this.preObjectButton.Size = new System.Drawing.Size(64, 23);
@@ -230,7 +214,6 @@
             // 
             // nextObjectButton
             // 
-            this.nextObjectButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.nextObjectButton.Location = new System.Drawing.Point(220, 10);
             this.nextObjectButton.Name = "nextObjectListBoxFile";
             this.nextObjectButton.Size = new System.Drawing.Size(64, 23);
@@ -240,11 +223,36 @@
             this.nextObjectButton.UseVisualStyleBackColor = true;
             this.nextObjectButton.Visible = true;
             this.nextObjectButton.Click += new System.EventHandler(this.nextObjectListBoxFile_Click);
+
+            // 
+            // show
+            // 
+            this.show.Location = new System.Drawing.Point(560, 10);
+            this.show.Name = "show";
+            this.show.Size = new System.Drawing.Size(64, 23);
+            this.show.TabIndex = 52;
+            this.show.Text = "show";
+            this.show.Font = new System.Drawing.Font("Times New Roman", 10);
+            this.show.UseVisualStyleBackColor = true;
+            this.show.Visible = true;
+            this.show.Click += new System.EventHandler(this.show_Click);
+
+            // 
+            // save
+            // 
+            this.save.Location = new System.Drawing.Point(632, 10);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(64, 23);
+            this.save.TabIndex = 52;
+            this.save.Text = "save";
+            this.save.Font = new System.Drawing.Font("Times New Roman", 10);
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Visible = true;
+            this.save.Click += new System.EventHandler(this.save_Click);
             
             // 
             // buttonImport
             // 
-            this.buttonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonImport.Location = new System.Drawing.Point(704, 10);
             this.buttonImport.Name = "buttonImport";
             this.buttonImport.Size = new System.Drawing.Size(64, 23);
@@ -257,7 +265,6 @@
             // 
             // enlarge button
             // 
-            this.enlargeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.enlargeButton.Location = new System.Drawing.Point(779, 10);
             this.enlargeButton.Name = "enlargeButton";
             this.enlargeButton.Size = new System.Drawing.Size(86, 23);
@@ -270,7 +277,6 @@
             // 
             // shrink button
             // 
-            this.shrinkButton.Anchor  =((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.shrinkButton.Location = new System.Drawing.Point(875, 10);
             this.shrinkButton.Name = "shrinkButton";
             this.shrinkButton.Size = new System.Drawing.Size(73, 23);
@@ -283,7 +289,6 @@
             // 
             // reset
             // 
-            this.reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.reset.Location = new System.Drawing.Point(958, 10);
             this.reset.Name = "reset";
             this.reset.Size = new System.Drawing.Size(63, 23);
@@ -296,7 +301,6 @@
             //
             //clear Box
             //
-            this.clearBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.clearBox.Location = new System.Drawing.Point(1030, 10);//1030 13
             this.clearBox.Name = "clearBox";
             this.clearBox.Size = new System.Drawing.Size(63, 23);
@@ -308,7 +312,6 @@
 
             //clear all Box in a frame 
             //
-            this.clearAllBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.clearAllBox.Location = new System.Drawing.Point(1105, 10);//1030 13
             this.clearAllBox.Name = "clearAllBox";
             this.clearAllBox.Size = new System.Drawing.Size(63, 23);
@@ -317,40 +320,22 @@
             this.clearAllBox.Font = new System.Drawing.Font("Times New Roman", 10);
             this.clearAllBox.UseVisualStyleBackColor = true;
             this.clearAllBox.Click += new System.EventHandler(this.clearAllBox_Click);
-            
-
-
-            // 
-            // numericUpDownImportHeight
-            // 
-            this.numericUpDownImportHeight.Location = new System.Drawing.Point(825, 19);
-            this.numericUpDownImportHeight.Maximum = new decimal(new int[] {10000,0,0,0});
-            this.numericUpDownImportHeight.Name = "numericUpDownImportHeight";
-            this.numericUpDownImportHeight.Size = new System.Drawing.Size(45, 21);
-            this.numericUpDownImportHeight.TabIndex = 28;
-            this.numericUpDownImportHeight.Value = new decimal(new int[] {300,0,0,0});
-            this.numericUpDownImportHeight.Visible = false;
-
 
             // 
             // top label
-            // 
-            this.topLabel.Dock = ((System.Windows.Forms.DockStyle)((System.Windows.Forms.DockStyle.Top)));
-            //this.topLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top)));
-            this.topLabel.Location = new System.Drawing.Point(12, 8);//1164 40
+            this.topLabel.Location = new System.Drawing.Point(4, 4);//1164 40
             this.topLabel.Name = "topLabel";
             this.topLabel.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
-            this.topLabel.Size = new System.Drawing.Size(1152, 35);
+            this.topLabel.Size = new System.Drawing.Size(1173, 35);
             this.topLabel.SendToBack();
 
             // 
             // buttom label
             // 
-            this.buttomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttomLabel.Location = new System.Drawing.Point(12, 379);//809 514
+            this.buttomLabel.Location = new System.Drawing.Point(4, 379);//809 514
             this.buttomLabel.Name = "buttomLabel";
             this.buttomLabel.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
-            this.buttomLabel.Size = new System.Drawing.Size(797, 135);
+            this.buttomLabel.Size = new System.Drawing.Size(808, 135);
             this.buttomLabel.Text = "KeyBoard Ops";
             this.buttomLabel.Font = new System.Drawing.Font("Times New Roman", 10);
             this.buttomLabel.ForeColor = System.Drawing.Color.FromArgb(83,134,139);
@@ -360,7 +345,6 @@
             // 
             // right buttom
             // 
-            this.rightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.rightLabel.Location = new System.Drawing.Point(817, 46);//1164 515
             this.rightLabel.Name = "rightLabel";
             this.rightLabel.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -374,7 +358,6 @@
             // 
             // attributeLabel
             // 
-            this.attributeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.attributeLabel.Location = new System.Drawing.Point(837, 317);//830 317
             this.attributeLabel.Name = "attributeLabel";
             this.attributeLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -388,7 +371,6 @@
             // 
             // checkbox1
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(878, 345);
             this.checkBox1.Name = "checkBox1";
@@ -396,17 +378,14 @@
             this.checkBox1.TabIndex = 42;
             this.checkBox1.TabStop = true;
             this.checkBox1.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
-            //this.checkBox1.Parent = this.attributeLabel;
             this.checkBox1.BringToFront();
             this.checkBox1.Font = new System.Drawing.Font("Times New Roman", 10);
             this.checkBox1.Text = "SOC";
-            //this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(878, 380);
             this.checkBox2.Name = "checkBox2";
@@ -421,7 +400,6 @@
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             
             // checkBox3
-            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(878, 415);
             this.checkBox3.Name = "checkBox3";
@@ -436,7 +414,6 @@
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
 
             // checkBox4
-            this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox4.AutoSize = true;
             this.checkBox4.Location = new System.Drawing.Point(1016, 345);
             this.checkBox4.Name = "checkBox4";
@@ -451,7 +428,6 @@
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
 
             // checkBox5
-            this.checkBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox5.AutoSize = true;
             this.checkBox5.Location = new System.Drawing.Point(1016, 380);
             this.checkBox5.Name = "checkBox5";
@@ -466,7 +442,6 @@
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
 
             // checkBox6
-            this.checkBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox6.AutoSize = true;
             this.checkBox6.Location = new System.Drawing.Point(1016, 415);
             this.checkBox6.Name = "checkBox6";
@@ -483,7 +458,6 @@
             // 
             // target info
             // 
-            this.targetInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.targetInfoLabel.Location = new System.Drawing.Point(837, 162);//830 162
             this.targetInfoLabel.Name = "targetInfo";
             this.targetInfoLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -496,7 +470,6 @@
             // 
             // groundtruth4Label
             // 
-            this.groundtruth4Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groundtruth4Label.Location = new System.Drawing.Point(837, 75);
             this.groundtruth4Label.Name = "groundtruth4Label";
             this.groundtruth4Label.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -509,7 +482,6 @@
             // 
             // boxPositionLabel
             // 
-            this.boxPositionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.boxPositionLabel.Location = new System.Drawing.Point(22, 414);
             this.boxPositionLabel.Name = "boxPositionLabel";
             this.boxPositionLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -521,7 +493,6 @@
             // 
             // Box Position 1
             // 
-            this.bpLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bpLabel1.Location = new System.Drawing.Point(131, 442);
             this.bpLabel1.Name = "bpLabel1";
             this.bpLabel1.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -534,7 +505,6 @@
             // 
             // Box Position 2
             // 
-            this.bpLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bpLabel2.Location = new System.Drawing.Point(41, 469);
             this.bpLabel2.Name = "bpLabel2";
             this.bpLabel2.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -547,7 +517,6 @@
             // 
             // Box Position 3
             // 
-            this.bpLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bpLabel3.Location = new System.Drawing.Point(131, 469);
             this.bpLabel3.Name = "bpLabel3";
             this.bpLabel3.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -560,7 +529,6 @@
             // 
             // Box Position 4
             // 
-            this.bpLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bpLabel4.Location = new System.Drawing.Point(221, 469);
             this.bpLabel4.Name = "bpLabel4";
             this.bpLabel4.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -573,7 +541,6 @@
             // 
             // boxSizeLabel
             // 
-            this.boxSizeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.boxSizeLabel.Location = new System.Drawing.Point(330, 414);
             this.boxSizeLabel.Name = "boxSizeLabel";
             this.boxSizeLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -585,7 +552,6 @@
             // 
             // Box Size 1
             // 
-            this.bsLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bsLabel1.Location = new System.Drawing.Point(361, 442);
             this.bsLabel1.Name = "bsLabel1";
             this.bsLabel1.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -598,7 +564,6 @@
             // 
             // Box Size 2
             // 
-            this.bsLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bsLabel2.Location = new System.Drawing.Point(448, 442);
             this.bsLabel2.Name = "bsLabel2";
             this.bsLabel2.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -611,7 +576,6 @@
             // 
             // Box Size 3
             // 
-            this.bsLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bsLabel3.Location = new System.Drawing.Point(361, 469);
             this.bsLabel3.Name = "bsLabel3";
             this.bsLabel3.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -624,7 +588,6 @@
             // 
             // Box Size 4
             // 
-            this.bsLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bsLabel4.Location = new System.Drawing.Point(448, 469);
             this.bsLabel4.Name = "bsLabel3";
             this.bsLabel4.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -637,7 +600,6 @@
             // 
             // switchLabel
             // 
-            this.switchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.switchLabel.Location = new System.Drawing.Point(572, 414);
             this.switchLabel.Name = "switchLabel";
             this.switchLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -649,7 +611,6 @@
             // 
             // switch 1
             // 
-            this.swLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.swLabel1.Location = new System.Drawing.Point(603, 442);
             this.swLabel1.Name = "swLabel1";
             this.swLabel1.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -662,7 +623,6 @@
             // 
             // switch 2
             // 
-            this.swLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.swLabel2.Location = new System.Drawing.Point(690, 442);
             this.swLabel2.Name = "swLabel2";
             this.swLabel2.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -675,7 +635,6 @@
             // 
             // switch 3
             // 
-            this.swLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.swLabel3.Location = new System.Drawing.Point(603, 469);
             this.swLabel3.Name = "swLabel3";
             this.swLabel3.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -688,7 +647,6 @@
             // 
             // switch 4
             // 
-            this.swLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.swLabel4.Location = new System.Drawing.Point(690, 469);
             this.swLabel4.Name = "swLabel4";
             this.swLabel4.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -701,7 +659,6 @@
             // 
             // Total Frame
             // 
-            this.tFrameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Bottom)));
             this.tFrameLabel.Location = new System.Drawing.Point(330, 389);//622 404
             this.tFrameLabel.Name = "tFrameLabel";
             this.tFrameLabel.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
@@ -714,7 +671,6 @@
             // 
             // X:
             // 
-            this.xLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.xLabel.Location = new System.Drawing.Point(856, 95);//910 116
             this.xLabel.Name = "xLabel";
             this.xLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -727,7 +683,6 @@
             // 
             // Y:
             // 
-            this.yLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.yLabel.Location = new System.Drawing.Point(995, 95);//910 116
             this.yLabel.Name = "yLabel";
             this.yLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -740,7 +695,6 @@
             // 
             // Width:
             // 
-            this.widthLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.widthLabel.Location = new System.Drawing.Point(856, 123);
             this.widthLabel.Name = "widthLabel";
             this.widthLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -753,7 +707,6 @@
             // 
             // Height:
             // 
-            this.heightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.heightLabel.Location = new System.Drawing.Point(995, 123);
             this.heightLabel.Name = "heightLabel";
             this.heightLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -766,7 +719,6 @@
             // 
             // frame id
             // 
-            this.frameIdLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.frameIdLabel.Location = new System.Drawing.Point(851, 186);//910 116
             this.frameIdLabel.Name = "frame_id";
             this.frameIdLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -779,7 +731,6 @@
             // 
             // object id:
             // 
-            this.objectIdLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.objectIdLabel.Location = new System.Drawing.Point(990, 186);//910 116
             this.objectIdLabel.Name = "object_id";
             this.objectIdLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -792,7 +743,6 @@
             // 
             // object_type
             // 
-            this.objectTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.objectTypeLabel.Location = new System.Drawing.Point(851, 214);//910 116
             this.objectTypeLabel.Name = "object_type";
             this.objectTypeLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -805,7 +755,6 @@
             // 
             // cloth_num
             // 
-            this.clothNumLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.clothNumLabel.Location = new System.Drawing.Point(980, 214);//910 116
             this.clothNumLabel.Name = "cloth_num";
             this.clothNumLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -818,7 +767,6 @@
             // 
             // shot_type
             // 
-            this.shotTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.shotTypeLabel.Location = new System.Drawing.Point(846, 242);//910 116
             this.shotTypeLabel.Name = "shot_type";
             this.shotTypeLabel.BackColor = System.Drawing.Color.FromArgb(207, 207, 207);
@@ -831,7 +779,6 @@
             // 
             // X TextBox:
             // 
-            this.xTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.xTextBox.Location = new System.Drawing.Point(910, 95);//967 116
             this.xTextBox.Name = "xTextBox";
             this.xTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
@@ -843,7 +790,6 @@
             // 
             // Y TextBox:
             // 
-            this.yTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.yTextBox.Location = new System.Drawing.Point(1051, 95);//967 116
             this.yTextBox.Name = "yTextBox";
             this.yTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
@@ -855,7 +801,6 @@
             // 
             // Width TextBox:
             // 
-            this.widthTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.widthTextBox.Location = new System.Drawing.Point(910, 123);//967 116
             this.widthTextBox.Name = "widthTextBox";
             this.widthTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
@@ -867,7 +812,6 @@
             // 
             // Height TextBox:
             // 
-            this.heightTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.heightTextBox.Location = new System.Drawing.Point(1051, 123);//967 116
             this.heightTextBox.Name = "heightTextBox";
             this.heightTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
@@ -879,7 +823,6 @@
             // 
             // frame id
             // 
-            this.frameIdTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.frameIdTextBox.Location = new System.Drawing.Point(910, 186);//967 116
             this.frameIdTextBox.Name = "frameIdTextBox";
             this.frameIdTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
@@ -891,7 +834,6 @@
             // 
             // object id
             // 
-            this.ObjectIdTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
             this.ObjectIdTextBox.Location = new System.Drawing.Point(1051, 186);//967 116
             this.ObjectIdTextBox.Name = "ObjectIdTextBox";
             this.ObjectIdTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
@@ -903,45 +845,62 @@
             // 
             // object type
             // 
-            this.objectTypeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.objectTypeTextBox.Location = new System.Drawing.Point(910, 214);//967 116
-            this.objectTypeTextBox.Name = "objectTypeTextBox";
-            this.objectTypeTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
-            this.objectTypeTextBox.Text = "0";
-            this.objectTypeTextBox.Font = new System.Drawing.Font("Times New Roman", 10);
-            this.objectTypeTextBox.BringToFront();
-            this.objectTypeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.objectTypeTextBox_KeyUp);
+            this.objectTypeComboBox.Location = new System.Drawing.Point(910, 214);//967 116
+            this.objectTypeComboBox.Name = "objectTypeComboBox";
+            this.objectTypeComboBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
+            this.objectTypeComboBox.Items.Add("player1");
+            this.objectTypeComboBox.Items.Add("ball");
+            this.objectTypeComboBox.Font = new System.Drawing.Font("Times New Roman", 10);
+            this.objectTypeComboBox.BringToFront();
+            this.objectTypeComboBox.DropDownWidth = 50;
+            this.objectTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.objectTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.objectTypeComboBoxSelectedIndexChanged);
 
             // 
             // cloth num
             // 
-            this.clothNumTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.clothNumComboBox.Location = new System.Drawing.Point(1051, 214);//967 116
+            this.clothNumComboBox.Name = "clothNumComboBox";
+            this.clothNumComboBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
+            this.clothNumComboBox.Items.Add("10-Leo Messi");
+            this.clothNumComboBox.Items.Add("7-Cristiano Ronaldo");
+            this.clothNumComboBox.Items.Add("7-Neymar da Silva Santos Júnior");
+            this.clothNumComboBox.Font = new System.Drawing.Font("Times New Roman", 10);
+            this.clothNumComboBox.BringToFront();
+            this.clothNumComboBox.DropDownWidth = 200;
+            this.clothNumComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clothNumComboBox.SelectedIndexChanged += new System.EventHandler(this.clothNumComboBoxSelectedIndexChanged);
+
+            // 
+            // cloth num2
+            // 
+
             this.clothNumTextBox.Location = new System.Drawing.Point(1051, 214);//967 116
             this.clothNumTextBox.Name = "clothNumTextBox";
             this.clothNumTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
             this.clothNumTextBox.Text = "0";
             this.clothNumTextBox.Font = new System.Drawing.Font("Times New Roman", 10);
             this.clothNumTextBox.BringToFront();
+            this.clothNumTextBox.Visible = false;
             this.clothNumTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.clothNumTextBox_KeyUp);
 
             // 
             // shot type
             // 
-            this.shotTypeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.shotTypeTextBox.Location = new System.Drawing.Point(910, 242);//967 116
-            this.shotTypeTextBox.Name = "shotTypeTextBox";
-            this.shotTypeTextBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
-            this.shotTypeTextBox.Text = "0";
-            this.shotTypeTextBox.Font = new System.Drawing.Font("Times New Roman", 10);
-            this.shotTypeTextBox.BringToFront();
-            this.shotTypeTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.shotTypeTextBox_KeyUp);
+            this.shotTypeComboBox.Location = new System.Drawing.Point(910, 242);//967 116
+            this.shotTypeComboBox.Name = "shotTypeComboBox";
+            this.shotTypeComboBox.Size = new System.Drawing.Size(54, 21);//76 is not enough
+            this.shotTypeComboBox.Items.Add("far");
+            this.shotTypeComboBox.Items.Add("middle");
+            this.shotTypeComboBox.Items.Add("near");
+            this.shotTypeComboBox.Font = new System.Drawing.Font("Times New Roman", 10);
+            this.shotTypeComboBox.BringToFront();
+            this.shotTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.shotTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.shotTypeComboBoxSelectedIndexChanged);
 
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label7);
@@ -975,15 +934,12 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.None));
             this.tabControl1.Controls.Add(this.tabPage1);
-            //this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1192, 549);// 1192 549
             this.tabControl1.TabIndex = 0;
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
 
             // 
             // FormMain
@@ -995,16 +951,15 @@
             this.KeyPreview = true;
             this.Name = "FormMain";
             this.Text = "TrackingPlayer";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImportHeight)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.FormMain_Load);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
+            
 
         }
 
@@ -1048,15 +1003,15 @@
         private System.Windows.Forms.TextBox heightTextBox;
         private System.Windows.Forms.TextBox frameIdTextBox;
         private System.Windows.Forms.TextBox ObjectIdTextBox;
-        private System.Windows.Forms.TextBox objectTypeTextBox;
+        private System.Windows.Forms.ComboBox objectTypeComboBox;
+        private System.Windows.Forms.ComboBox clothNumComboBox;
         private System.Windows.Forms.TextBox clothNumTextBox;
-        private System.Windows.Forms.TextBox shotTypeTextBox;
+        private System.Windows.Forms.ComboBox shotTypeComboBox;
         private System.Windows.Forms.Button buttonImport;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.NumericUpDown numericUpDownImportHeight;
         private System.Windows.Forms.Button enlargeButton;
         private System.Windows.Forms.Button reset;
         private System.Windows.Forms.Button clearBox;
@@ -1073,5 +1028,6 @@
         private System.Windows.Forms.Button preObjectButton;
         private System.Windows.Forms.Button nextObjectButton;
         private System.Windows.Forms.Button save;
+        private System.Windows.Forms.Button show;
     }
 }

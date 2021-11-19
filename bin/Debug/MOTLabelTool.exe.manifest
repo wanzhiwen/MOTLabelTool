@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MOTLabelTool.exe" size="39424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MOTLabelTool.exe" size="43008">
       <assemblyIdentity name="MOTLabelTool" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>tnn1GHEzf+qlaRCBp2WdIvYnO2A=</dsig:DigestValue>
+        <dsig:DigestValue>lwWYZOgH0Jzr9ppX38CNNg13G5Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
